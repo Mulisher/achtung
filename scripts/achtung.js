@@ -1,5 +1,5 @@
-const title = 'Achtung, die Chlebe!'
-const ver = 'ver 0.75 \"Dokąd zmierzasz?\"'
+const title = 'Achtung, die Kurve!'
+const ver = 'ver 0.75 \"Jest Git\"'
 let w,h
 let gameBorder
 let borderThickness
