@@ -1,6 +1,7 @@
 const title = 'Achtung, die Kurve!'
 const ver = 'ver 0.8 \"Stary kod :V\"'
 let w,h
+let fps = 30
 let gameBorder
 let borderThickness
 let baseSpeed, baseSize
@@ -51,7 +52,7 @@ function setup(){
     gameBorder = Math.round(w*7/8)
     borderThickness = Math.round(w/200)
     createCanvas(w,h)
-    frameRate(30)
+    frameRate(fps)
     noSmooth()
     textAlign(CENTER, CENTER)
     baseSpeed = Math.round(w/280)
@@ -60,6 +61,7 @@ function setup(){
     if(baseSize < 4)baseSpeed = 4
     makeColors()
     makeMenu()
+    console.log("Setup done")
 }
 
 function draw(){
@@ -77,8 +79,6 @@ function draw(){
         case 'game_over':
             gameEnd()
             break;
-        default:
-            iconTest()
     }
 }
 
@@ -121,9 +121,8 @@ function newPickups(){
     else if(frameCount % pickupsEveryNthFrame){
         return
     }
-    else if(pickups.length < pickupLimit &&
-        random(100) < pickupProb){
-        pickups.push(new Pickup())
+    else if(pickups.length < pickupLimit && random(100) < pickupProb){
+        pickups.push(new Pickup(fps))
     }
 }
 
@@ -246,24 +245,6 @@ function countActive(){
         if(activePlayer[i])active++
     }
     return active
-}
-
-let list = []
-function iconTest(){
-    if(list.length == 0){
-        for(let i = 0; i < pickupTypes.length; i++){
-            const pi = new Pickup(i)
-            pi.type = pickupTypes[i]
-            const sep = w/pickupTypes.length
-            pi.position.x = sep*(i)+sep/2
-            pi.position.y = h/2
-            list.push(p)
-        }
-    }else{
-        for(let l of list){
-            l.display()
-        }
-    }
 }
 
 function drawMap(){

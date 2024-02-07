@@ -1,8 +1,3 @@
-//TODO
-//2 rozne randomy?
-//wysyp znajdziek?
-//chyba poparawki na romzar itp powinny być wewnatrz
-//"first tick"
 const pickupTypes = ['speed_self',
                     'speed_others',
                     'slow_self',
@@ -24,7 +19,7 @@ const pickupTypes = ['speed_self',
                     'random']
 
 class Pickup{
-    constructor(){
+    constructor(fps){
         this.id = this.generateId()
         const sx = w/50+random(gameBorder-(w/50)*2)
         const sy = w/50+random(h-(w/50)*2)
@@ -36,6 +31,7 @@ class Pickup{
         this.picked = false
         this.firstTick = true
         this.pickedById = -1
+        this.fps = fps
         this.timeLeft = this.provideDuration()
         this.affected = []
     }
@@ -557,11 +553,10 @@ class Pickup{
 
     textIcon(pos,txt){
         push()
-        let ofs = w/500
         translate(pos.x,pos.y)
         noStroke()
         fill(lColors[1])
-        ellipse(0,-ofs,this.r,this.r)
+        ellipse(0,0,this.r,this.r)
         textSize(w/50)
         fill(color(0xfb,0xf1,0xc7))
         text(txt,0,0)
@@ -570,11 +565,10 @@ class Pickup{
 
     textIconSelf(pos,txt){
         push()
-        let ofs = w/500
         translate(pos.x,pos.y)
         noStroke()
         fill(lColors[2])
-        ellipse(0,-ofs,this.r,this.r)
+        ellipse(0,0,this.r,this.r)
         textSize(w/50)
         fill(color(0xfb,0xf1,0xc7))
         text(txt,0,0)
@@ -583,11 +577,10 @@ class Pickup{
 
     textIconOther(pos,txt){
         push()
-        let ofs = w/500
         translate(pos.x,pos.y)
         noStroke()
         fill(lColors[0])
-        ellipse(0,-ofs,this.r,this.r)
+        ellipse(0,0,this.r,this.r)
         textSize(w/50)
         fill(color(0xfb,0xf1,0xc7))
         text(txt,0,0)
@@ -606,9 +599,7 @@ class Pickup{
         return newId
     }
 
-    remove(){
-        this.toBeRemoved = true
-    }
+    remove(){ this.toBeRemoved = true }
 
     checkIfPickedUp(){
         if(this.picked)return false
@@ -631,36 +622,22 @@ class Pickup{
     }
 
     provideDuration(){
-        switch (this.type){
-            case 'speed_self':
-                return 30*4
-            case 'speed_others':
-                return 30*4
-            case 'slow_self':
-                return 30*4
-            case 'slow_others':
-                return 30*4
-            case 'fat_self':
-                return 30*8
-            case 'fat_others':
-                return 30*8
-            case 'thin_self':
-                return 30*8
-            case 'thin_others':
-                return 30*8
-            case 'tron_self':
-                return 30*8
-            case 'tron_others':
-                return 30*8
-            case 'ghost':
-                return 30*8
-            case 'no_walls':
-                return 30*10
-            case 'wall_hack':
-                return 30*10
-            default:
-                return 0
+        const durations = {
+            'wall_hack':(this.fps*10),
+            'no_walls':(this.fps*10),
+            'ghost':(this.fps*8),
+            'tron_others':(this.fps*8),
+            'tron_self':(this.fps*8),
+            'thin_others':(this.fps*8),
+            'thin_self':(this.fps*8),
+            'fat_others':(this.fps*8),
+            'fat_self':(this.fps*8),
+            'slow_others':(this.fps*4),
+            'slow_self':(this.fps*4),
+            'speed_others':(this.fps*4),
+            'speed_self':(this.fps*4)
         }
+        return durations[this.type]
     }
 
 }
