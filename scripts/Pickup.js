@@ -30,8 +30,8 @@ class Pickup{
         const sy = w/50+random(h-(w/50)*2)
         this.position = createVector(sx,sy)
         const rand = Math.floor(random(pickupTypes.length))
-        //this.type = pickupTypes[rand]
-        this.type = 'speed_self'
+        this.type = pickupTypes[rand]
+        //this.type = 'speed_self'
         this.r = w/50
         this.picked = false
         this.firstTick = true
