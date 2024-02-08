@@ -1,22 +1,24 @@
-const pickupTypes = ['speed_self',
-                    'speed_others',
-                    'slow_self',
-                    'slow_others',
+const pickupTypes = [
+                    ['speed_self','\u2b4d','self'],
+                    ['speed_others','\u2b4d','others'],
+                    ['slow_self','\u2a54','self'],
+                    ['slow_others','\u2a54','others'],
 
-                    'fat_self',
-                    'fat_others',
-                    'thin_self',
-                    'thin_others',
+                    ['fat_self','\u2501','self'],
+                    ['fat_others','\u2501','others'],
+                    ['thin_self','\u23bb','self'],
+                    ['thin_others','\u23bb','others'],
 
-                    'clear_all_trails',
-                    'clear_my_trail',
-                    'tron_self',
-                    'tron_others',
+                    ['clear_all_trails','\u2505','none'],
+                    ['clear_my_trail','\u2505','self'],
+                    ['tron_self','\u2ba3','self'],
+                    ['tron_others','\u2ba3','others'],
 
-                    'no_walls',
-                    'wall_hack',
-                    'ghost',
-                    'random']
+                    ['no_walls','\u26f6','none'],
+                    ['wall_hack','\u2346','none'],
+                    ['ghost','\u233e','none'],
+                    ['random','?','none']
+]
 
 class Pickup{
     constructor(fps){
@@ -24,9 +26,9 @@ class Pickup{
         const sx = w/50+random(gameBorder-(w/50)*2)
         const sy = w/50+random(h-(w/50)*2)
         this.position = createVector(sx,sy)
-        const rand = Math.floor(random(pickupTypes.length))
-        this.type = pickupTypes[rand]
-        //this.type = 'speed_self'
+        this.typeId = Math.floor(random(pickupTypes.length))
+        this.type = pickupTypes[this.typeId][0]
+        //this.type = 'fat_self'
         this.r = w/50
         this.picked = false
         this.firstTick = true
@@ -96,7 +98,7 @@ class Pickup{
 
     getWhoPicked(){
         for(let p of players){
-            if(p.id == this.pickedById){
+            if(p.id === this.pickedById){
                 return p
             }
         }
@@ -125,7 +127,7 @@ class Pickup{
                 this.affected = []
                 this.firstTick = false
                 for(let p of players){
-                    if(p.id != this.pickedById){
+                    if(p.id !== this.pickedById){
                         this.affected.push(p.id)
                         p.velocity.setMag(p.velocity.mag()*2)
                         p.holeSize /= 2
@@ -167,7 +169,7 @@ class Pickup{
                 this.affected = []
                 this.firstTick = false
                 for(let p of players){
-                    if(p.id != this.pickedById){
+                    if(p.id !== this.pickedById){
                         this.affected.push(p.id)
                         p.velocity.setMag(p.velocity.mag()/2)
                         p.holeSize *= 2
@@ -215,7 +217,7 @@ class Pickup{
                 this.affected = []
                 this.firstTick = false
                 for(let p of players){
-                    if(p.id != this.pickedById){
+                    if(p.id !== this.pickedById){
                         this.affected.push(p.id)
                         p.interuptTrail()
                         p.size *= 2
@@ -272,7 +274,7 @@ class Pickup{
                 this.affected = []
                 this.firstTick = false
                 for(let p of players){
-                    if(p.id != this.pickedById){
+                    if(p.id !== this.pickedById){
                         this.affected.push(p.id)
                         p.interuptTrail()
                         p.size /= 2
@@ -322,9 +324,9 @@ class Pickup{
             let otherTron = false
             for(let p of pickups){
                 if(p.picked &&
-                    p.id != this.id &&
-                    p.type == this.type &&
-                    p.pickedById == this.pickedById){
+                    p.id !== this.id &&
+                    p.type === this.type &&
+                    p.pickedById === this.pickedById){
                     otherTron = true
                 }
             }
@@ -341,14 +343,14 @@ class Pickup{
                 this.affected = []
                 this.firstTick = false
                 for(let p of players){
-                    if(p.id != this.pickedById){
+                    if(p.id !== this.pickedById){
                         this.affected.push(p.id)
                         p.tron = true
                     }
                 }
             }
             for(let p of players){
-                if(p.id != this.pickedById){
+                if(p.id !== this.pickedById){
                     this.affected.push(p.id)
                     p.tron = true
                 }
@@ -373,9 +375,9 @@ class Pickup{
             let otherGhost = false
             for(let p of pickups){
                 if(p.picked &&
-                    p.id != this.id &&
-                    p.type == this.type &&
-                    p.pickedById == this.pickedById){
+                    p.id !== this.id &&
+                    p.type === this.type &&
+                    p.pickedById === this.pickedById){
                     otherGhost = true
                 }
             }
@@ -393,7 +395,7 @@ class Pickup{
         }else{
             let otherNoWalls = false
             for(let p of pickups){
-                if(p.picked && p.id != this.id && p.type == this.type){
+                if(p.picked && p.id !== this.id && p.type === this.type){
                     otherNoWalls = true
                 }
             }
@@ -413,9 +415,9 @@ class Pickup{
             let otherWallHacks = false
             for(let p of pickups){
                 if(p.picked &&
-                    p.id != this.id &&
-                    p.type == this.type &&
-                    p.pickedById == this.pickedById){
+                    p.id !== this.id &&
+                    p.type === this.type &&
+                    p.pickedById === this.pickedById){
                     otherWallHacks = true
                 }
             }
@@ -434,13 +436,13 @@ class Pickup{
 
     getAffected(aId){
         for(let p of players){
-            if(aId == p.id)return p
+            if(aId === p.id)return p
         }
     }
 
     removeAffected(pId){
         for(let i = this.affected.length - 1; i >= 0; i--){
-            if(this.affected[i] == pId){
+            if(this.affected[i] === pId){
                 this.affected.splice(i,1)
             }
         }
@@ -449,137 +451,24 @@ class Pickup{
     display(){
         if(this.picked)return
         const pos = this.position
-        switch (this.type){
-            case 'speed_self':
-                this.ShowSpeedSelf(pos)
+        this.textIcon(pos,pickupTypes[this.typeId][1],pickupTypes[this.typeId][2]) 
+    }
+
+    textIcon(pos,txt,t){
+        push()
+        translate(pos.x,pos.y)
+        noStroke()
+        switch(t){
+            case "self":
+                fill(lColors[2])
                 break
-            case 'speed_others':
-                this.ShowSpeedOthers(pos)
+            case "others":
+                fill(lColors[0])
                 break
-            case 'slow_self':
-                this.ShowSlowSelf(pos)
+            case "none":
+                fill(lColors[1])
                 break
-            case 'slow_others':
-                this.ShowSlowOthers(pos)
-                break
-            case 'fat_self':
-                this.ShowFatSelf(pos)
-                break
-            case 'fat_others':
-                this.ShowFatOthers(pos)
-                break
-            case 'thin_self':
-                this.ShowThinSelf(pos)
-                break
-            case 'thin_others':
-                this.ShowThinOthers(pos)
-                break
-            case 'tron_self':
-                this.ShowTronSelf(pos)
-                break
-            case 'tron_others':
-                this.ShowTronOthers(pos)
-                break
-            case 'clear_all_trails':
-                this.ShowClearAllTrails(pos)
-                break
-            case 'clear_my_trail':
-                this.ShowClearMyTrail(pos)
-                break
-            case 'ghost':
-                this.ShowGhost(pos)
-                break
-            case 'no_walls':
-                this.ShowNoWalls(pos)
-                break
-            case 'wall_hack':
-                this.ShowWallHack(pos)
-                break
-            case 'random':
-                this.ShowRandom(pos)
-                break
-            default:
         }
-    }
-
-    ShowSpeedSelf(pos){
-        this.textIconSelf(pos,'\u2b4d')
-    }
-    ShowSpeedOthers(pos){
-        this.textIconOther(pos,'\u2b4d')
-    }
-    ShowSlowSelf(pos){
-        this.textIconSelf(pos,'\u2a54')
-    }
-    ShowSlowOthers(pos){
-        this.textIconOther(pos,'\u2a54')
-    }
-    ShowFatSelf(pos){
-        this.textIconSelf(pos,'\u2501')
-    }
-    ShowFatOthers(pos){
-        this.textIconOther(pos,'\u2501')
-    }
-    ShowThinSelf(pos){
-        this.textIconSelf(pos,'\u23bb')
-    }
-    ShowThinOthers(pos){
-        this.textIconOther(pos,'\u23bb')
-    }
-    ShowTronSelf(pos){
-        this.textIconSelf(pos,'\u2ba3')
-    }
-    ShowTronOthers(pos){
-        this.textIconOther(pos,'\u2ba3')
-    }
-    ShowClearAllTrails(pos){
-        this.textIcon(pos,'\u2505')
-    }
-    ShowClearMyTrail(pos){
-        this.textIconSelf(pos,'\u2505')
-    }
-    ShowGhost(pos){
-        this.textIconSelf(pos,'\u233e')
-    }
-    ShowNoWalls(pos){
-        this.textIcon(pos,'\u26f6')
-    }
-    ShowWallHack(pos){
-        this.textIconSelf(pos,'\u2346')
-    }
-    ShowRandom(pos){
-        this.textIcon(pos,'?')
-    }
-
-    textIcon(pos,txt){
-        push()
-        translate(pos.x,pos.y)
-        noStroke()
-        fill(lColors[1])
-        ellipse(0,0,this.r,this.r)
-        textSize(w/50)
-        fill(color(0xfb,0xf1,0xc7))
-        text(txt,0,0)
-        pop()
-    }
-
-    textIconSelf(pos,txt){
-        push()
-        translate(pos.x,pos.y)
-        noStroke()
-        fill(lColors[2])
-        ellipse(0,0,this.r,this.r)
-        textSize(w/50)
-        fill(color(0xfb,0xf1,0xc7))
-        text(txt,0,0)
-        pop()
-    }
-
-    textIconOther(pos,txt){
-        push()
-        translate(pos.x,pos.y)
-        noStroke()
-        fill(lColors[0])
         ellipse(0,0,this.r,this.r)
         textSize(w/50)
         fill(color(0xfb,0xf1,0xc7))

@@ -1,3 +1,5 @@
+const forbiddenKeys = [' ','Tab','Escape','CapsLock','NumLock']
+
 function menu(){
     textSize(w/20)
     fill(fgC)
@@ -88,7 +90,7 @@ function controlsChangeMenu(){
 }
 
 function makeMenu(){
-    let offset = 2*h/14
+    let offset = h/7
     let bx = w/100
     let bw = w*3/4
     let bh = offset - w/100
@@ -104,7 +106,7 @@ function makeMenu(){
         b.text = ""
         b.onPress = function(){
             key = null
-            if(activePlayer[this.textSize] == false){
+            if(activePlayer[this.textSize] === false){
                 changeControls(this.textSize)
             }
             activePlayer[this.textSize] = !activePlayer[this.textSize]
@@ -154,22 +156,10 @@ function changeControls(pid){
 
 function isKeyForbidden(k){
     for(let i = 0; i < playerKeys.length; i++){
-        if(k == playerKeys[i][0] || k == playerKeys[i][1]){
+        if(k === playerKeys[i][0] || k === playerKeys[i][1]){
             return true
         }
     }
-    switch (k){
-        case ' ':
-            return true
-        case 'Tab':
-            return true
-        case 'Escape':
-            return true
-        case 'CapsLock':
-            return true
-        case 'NumLock':
-            return true
-        default:
-            return false
-    }
+    if (forbiddenKeys.includes(k))return true
+    return false
 }

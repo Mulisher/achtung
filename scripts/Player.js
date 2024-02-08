@@ -102,7 +102,7 @@ class Player{
         for(let i = 0; i < this.history.length; i++){
             strokeWeight(this.history[i][2]*2)
             let hp = this.history[i][0];
-            if(this.history[i][1] == true){
+            if(this.history[i][1] === true){
                 endShape()
                 beginShape()
             }else{
@@ -142,7 +142,7 @@ class Player{
         }
 
         for(let p of players){
-            if(p.id != this.id && p.checkOtherHit(pos,s)){
+            if(p.id !== this.id && p.checkOtherHit(pos,s)){
                 this.crash()
                 return
             }
@@ -190,7 +190,7 @@ class Player{
 
     giveScore(){
         for(let p of players){
-            if(p.id != this.id & p.alive)p.score ++
+            if(p.id !== this.id & p.alive)p.score ++
         }
     }
 }

@@ -34,15 +34,15 @@ function keyPressed(){
         }
     }
     for(let i = 0; i < 6; i++){
-        if(key == playerKeys[i][0])controls[i][0] = true
-        if(key == playerKeys[i][1])controls[i][1] = true
+        if(key === playerKeys[i][0])controls[i][0] = true
+        if(key === playerKeys[i][1])controls[i][1] = true
     }
 }
 
 function keyReleased(){
     keyLockout = false
     for(let i = 0; i < 6; i++){
-        if(key == playerKeys[i][0])controls[i][0] = false
-        if(key == playerKeys[i][1])controls[i][1] = false
+        if(key === playerKeys[i][0])controls[i][0] = false
+        if(key === playerKeys[i][1])controls[i][1] = false
     }
 }

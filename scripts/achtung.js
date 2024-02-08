@@ -1,5 +1,5 @@
 const title = 'Achtung, die Kurve!'
-const ver = 'ver 0.8 \"Stary kod :V\"'
+const ver = 'ver 0.9 \"Refactorio\"'
 let w,h
 let fps = 30
 let gameBorder
@@ -138,7 +138,7 @@ function newGame(){
     pickups = []
     noPickupsYet = pickupsDelay
     for(let i = 0; i < 6; i++){
-        if(activePlayer[i] == true){
+        if(activePlayer[i] === true){
             const player = new Player(i)
             players.push(player)
         }
@@ -170,7 +170,7 @@ function roundEnd(){
         pi.display()
     }
     stroke(bgC)
-    if(winner == -1){
+    if(winner === -1){
         fill(fgC)
         textSize(w/10)
         text('DRAW',gameBorder/2,height/2)
@@ -200,7 +200,7 @@ function gameEnd(){
 }
 
 function checkGameEnd(){
-    if(players.length == 1)return false
+    if(players.length === 1)return false
     let scores = []
     for(let p of players){
         scores.push([p.score,p.id])
