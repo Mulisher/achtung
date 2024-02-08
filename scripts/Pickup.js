@@ -1,5 +1,4 @@
-const pickupTypes = [
-                    ['speed_self','\u2b4d','self'],
+const pickupTypes = [ ['speed_self','\u2b4d','self'],
                     ['speed_others','\u2b4d','others'],
                     ['slow_self','\u2a54','self'],
                     ['slow_others','\u2a54','others'],
@@ -27,8 +26,8 @@ class Pickup{
         const sy = w/50+random(h-(w/50)*2)
         this.position = createVector(sx,sy)
         this.typeId = Math.floor(random(pickupTypes.length))
+        //this.typeId = 4
         this.type = pickupTypes[this.typeId][0]
-        //this.type = 'fat_self'
         this.r = w/50
         this.picked = false
         this.firstTick = true
@@ -303,15 +302,13 @@ class Pickup{
     }
 
     clearAllTrails(){
-        for(let p of players){
-            p.history = []
-        }
+        for(let pl of players){ pl.history = [] }
         this.remove()
     }
 
     clearMyTrail(){
-        let p = this.getWhoPicked()
-        p.history = []
+        let pl = this.getWhoPicked()
+        pl.history = []
         this.remove()
     }
 
@@ -323,7 +320,7 @@ class Pickup{
         }else{
             let otherTron = false
             for(let p of pickups){
-                if(p.picked &&
+                if( p.picked &&
                     p.id !== this.id &&
                     p.type === this.type &&
                     p.pickedById === this.pickedById){

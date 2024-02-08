@@ -163,7 +163,7 @@ class Player{
     }
 
     checkSelfHit(){
-        let skip = this.size * 8
+        let skip = this.size * 2
         for(let i = 0; i < this.history.length - skip; i++){
             let tp = this.history[i][0]
             let pos = this.position

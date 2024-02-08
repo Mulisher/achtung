@@ -61,7 +61,6 @@ function setup(){
     if(baseSize < 4)baseSpeed = 4
     makeColors()
     makeMenu()
-    console.log("Setup done")
 }
 
 function draw(){
@@ -216,12 +215,8 @@ function checkGameEnd(){
 }
 
 function scoreSort(a,b){
-    if(a[0] === b[0]){
-        return 0
-    }
-    else{
-        return (a[0] > b[0]) ? -1 : 1
-    }
+    if(a[0] === b[0]){ return 0 }
+    else{ return (a[0] > b[0]) ? -1 : 1 }
 }
 
 function checkRoundWin(){
@@ -233,17 +228,13 @@ function checkRoundWin(){
 
 function countAlive(){
     let alive = 0
-    for(let p of players){
-        if(p.alive)alive++
-    }
+    for(let p of players){ if(p.alive)alive++ }
     return alive
 }
 
 function countActive(){
     let active = 0
-    for(let i = 0; i < 6; i++){
-        if(activePlayer[i])active++
-    }
+    for(let i = 0; i < 6; i++){ if(activePlayer[i])active++ }
     return active
 }
 
@@ -270,17 +261,17 @@ function makeColors(){
     fgC  = color(0xeb,0xdb,0xb2)
     dFgC = color(0xa8,0x99,0x84)
     picBg = color(0xd6,0x5d,0x0e)
-    lColors = [color(0xfb,0x49,0x34),//red
-        color(0x83,0xa5,0x98),//blue
-        color(0xb8,0xbb,0x26),//green
-        color(0xfa,0xbd,0x2f),//yellow
-        color(0xd8,0x86,0x9b),//purple
-        color(0x8e,0xc0,0x7c)]//aqua
+    lColors = [ color(0xfb,0x49,0x34),//red
+                color(0x83,0xa5,0x98),//blue
+                color(0xb8,0xbb,0x26),//green
+                color(0xfa,0xbd,0x2f),//yellow
+                color(0xd8,0x86,0x9b),//purple
+                color(0x8e,0xc0,0x7c)]//aqua
 
-    pColors = [color(0xcc,0x24,0x1d),//red
-        color(0x45,0x85,0x88),//blue
-        color(0x98,0x97,0x1a),//green
-        color(0xd7,0x99,0x21),//yellow
-        color(0xb1,0x62,0x85),//purple
-        color(0x68,0x9d,0x6a)]//aqua
+    pColors = [ color(0xcc,0x24,0x1d),//red
+                color(0x45,0x85,0x88),//blue
+                color(0x98,0x97,0x1a),//green
+                color(0xd7,0x99,0x21),//yellow
+                color(0xb1,0x62,0x85),//purple
+                color(0x68,0x9d,0x6a)]//aqua
 }
