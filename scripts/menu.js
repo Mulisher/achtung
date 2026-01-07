@@ -72,12 +72,8 @@ function controlsChangeMenu(){
     noStroke()
     textSize(w/20)
     switch (controlsChangingN){
-        case 0:
-            text('Press LEFT',w/2,h/2)
-            break
-        case 1:
-            text('Press RIGHT',w/2,h/2)
-            break
+        case 0: text('Press LEFT',w/2,h/2); break
+        case 1: text('Press RIGHT',w/2,h/2); break
         case 2:
             controlsChanging = false
             return
@@ -156,10 +152,8 @@ function changeControls(pid){
 
 function isKeyForbidden(k){
     for(let i = 0; i < playerKeys.length; i++){
-        if(k === playerKeys[i][0] || k === playerKeys[i][1]){
-            return true
-        }
+        if ( playerKeys[i].includes(k) ) return true
     }
-    if (forbiddenKeys.includes(k))return true
+    if ( forbiddenKeys.includes(k) ) return true
     return false
 }

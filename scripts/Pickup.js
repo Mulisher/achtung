@@ -1,4 +1,5 @@
-const pickupTypes = [ ['speed_self','\u2b4d','self'],
+const pickupTypes = [ 
+                    ['speed_self','\u2b4d','self'],
                     ['speed_others','\u2b4d','others'],
                     ['slow_self','\u2a54','self'],
                     ['slow_others','\u2a54','others'],
@@ -43,54 +44,22 @@ class Pickup{
         }
         if(!this.picked)return
         switch (this.type){
-            case 'speed_self':
-                this.speedSelf()
-                break
-            case 'speed_others':
-                this.speedOthers()
-                break
-            case 'slow_self':
-                this.slowSelf()
-                break
-            case 'slow_others':
-                this.slowOthers()
-                break
-            case 'fat_self':
-                this.fatSelf()
-                break
-            case 'fat_others':
-                this.fatOthers()
-                break
-            case 'thin_self':
-                this.thinSelf()
-                break
-            case 'thin_others':
-                this.thinOthers()
-                break
-            case 'tron_self':
-                this.tronSelf()
-                break
-            case 'tron_others':
-                this.tronOthers()
-                break
-            case 'clear_all_trails':
-                this.clearAllTrails()
-                break
-            case 'clear_my_trail':
-                this.clearMyTrail()
-                break
-            case 'ghost':
-                this.ghost()
-                break
-            case 'no_walls':
-                this.noWalls()
-                break
-            case 'wall_hack':
-                this.wallHack()
-                break
-            case 'random':
-                this.random()
-                break
+            case 'speed_self': this.speedSelf(); break
+            case 'speed_others': this.speedOthers(); break
+            case 'slow_self': this.slowSelf(); break
+            case 'slow_others': this.slowOthers(); break
+            case 'fat_self': this.fatSelf(); break
+            case 'fat_others': this.fatOthers(); break
+            case 'thin_self': this.thinSelf(); break
+            case 'thin_others': this.thinOthers(); break
+            case 'tron_self': this.tronSelf(); break
+            case 'tron_others': this.tronOthers(); break
+            case 'clear_all_trails': this.clearAllTrails(); break
+            case 'clear_my_trail': this.clearMyTrail(); break
+            case 'ghost': this.ghost(); break
+            case 'no_walls': this.noWalls(); break
+            case 'wall_hack': this.wallHack(); break
+            case 'random': this.random(); break
             default:
         }
     }
@@ -456,15 +425,9 @@ class Pickup{
         translate(pos.x,pos.y)
         noStroke()
         switch(t){
-            case "self":
-                fill(lColors[2])
-                break
-            case "others":
-                fill(lColors[0])
-                break
-            case "none":
-                fill(lColors[1])
-                break
+            case "self": fill(lColors[2]); break
+            case "others": fill(lColors[0]); break
+            case "none": fill(lColors[1]); break
         }
         ellipse(0,0,this.r,this.r)
         textSize(w/50)

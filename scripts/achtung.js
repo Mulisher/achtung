@@ -18,7 +18,7 @@ let fgC,dFgC,bgC,lBgC,picBg,pColors,lColors
 let controlsChanging = false
 let controlsChangingN
 let controlsChangingId
-let scoreButtonPressed = false;
+// let scoreButtonPressed = false;
 let keyLockout = false
 let walls = true
 let noPickupsYet
@@ -44,42 +44,6 @@ let playerKeys = [ ['n','m'],
                    ['a','s'],
                    ['t','y'],
                    ['g','h'] ]
-
-
-function setup(){
-    w = Math.floor( windowWidth -5 )
-    h = Math.floor( windowHeight -5 )
-    gameBorder = Math.round(w*7/8)
-    borderThickness = Math.round(w/200)
-    createCanvas(w,h)
-    frameRate(fps)
-    noSmooth()
-    textAlign(CENTER, CENTER)
-    baseSpeed = Math.round(w/280)
-    if(baseSpeed < 1)baseSpeed = 1
-    baseSize = Math.round(w/350)
-    if(baseSize < 4)baseSpeed = 4
-    makeColors()
-    makeMenu()
-}
-
-function draw(){
-    background(bgC)
-    switch (state) {
-        case 'menu':
-            menu()
-            break;
-        case 'game':
-            gameLoop()
-            break;
-        case 'round':
-            roundEnd()
-            break;
-        case 'game_over':
-            gameEnd()
-            break;
-    }
-}
 
 function backToMenu(){
     pause = true;
@@ -274,4 +238,32 @@ function makeColors(){
                 color(0xd7,0x99,0x21),//yellow
                 color(0xb1,0x62,0x85),//purple
                 color(0x68,0x9d,0x6a)]//aqua
+}
+
+function setup(){
+    w = Math.floor( windowWidth -5 )
+    h = Math.floor( windowHeight -5 )
+    gameBorder = Math.round(w*7/8)
+    borderThickness = Math.round(w/200)
+    createCanvas(w,h)
+    frameRate(fps)
+    noSmooth()
+    textAlign(CENTER, CENTER)
+    baseSpeed = Math.round(w/280)
+    if(baseSpeed < 1)baseSpeed = 1
+    baseSize = Math.round(w/350)
+    if(baseSize < 4)baseSpeed = 4
+    makeColors()
+    makeMenu()
+}
+
+function draw(){
+// main function run by p5
+    background(bgC)
+    switch (state) {
+        case 'menu': menu(); break;
+        case 'game': gameLoop(); break;
+        case 'round': roundEnd(); break;
+        case 'game_over': gameEnd(); break;
+    }
 }
